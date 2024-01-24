@@ -3,12 +3,25 @@ import java.sql.DriverManager; // Fixed import statement
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import lutput.catMath.peaklutputgiri;
+import java.util.Scanner;
 
 public class getEmployee { // Class names should start with an uppercase letter
     Connection con;
     Statement stm;
     ResultSet rst;
+    private int number;
+    private long factorial;
     
+    void getFactorialInput() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter a number: ");
+        number = scanner.nextInt();
+        scanner.close();
+        factorial = peaklutputgiri.calculate(number);
+        System.out.println(factorial);
+
+    }
     getEmployee() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
