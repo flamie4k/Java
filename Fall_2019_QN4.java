@@ -41,7 +41,7 @@ public class Fall_2019_QN4 {
             displayResult("Invalid input. Please enter a valid number.");
         }
     }
-
+    //New frame for result
     private void displayResult(String message) {
         JFrame resultFrame = new JFrame("Result");
         JPanel resultPanel = new JPanel();
