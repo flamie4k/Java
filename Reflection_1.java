@@ -5,7 +5,7 @@ import java.lang.reflect.Parameter;
 
 public class Reflection_1 {
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({})
     public static void main(String[] args) throws ClassNotFoundException {
         Class<?> targetClass = Class.forName("java.io.IOException");
         
