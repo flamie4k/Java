@@ -1,6 +1,6 @@
 import java.io.*;
 import java.util.*;
-
+//Idk why but myScan.Close() doesn't work so can't fix the resource leak. 
 
 public class Banking {
     //Can't add new users atm
@@ -13,7 +13,6 @@ public class Banking {
     String address;
     float balance;
     double accNo;
-    boolean userVerified = userVerify();
 
     Scanner myScan = new Scanner(System.in);
     String filePath = "bankingDetails.txt";
@@ -33,22 +32,6 @@ public class Banking {
             }
         }
     }
-    boolean userVerify() {
-        System.out.println("Enter your username: \n");
-        inp_username = myScan.nextLine();
-        System.out.println("Enter your password : \n");
-        inp_password = myScan.nextLine();
-        if (inp_username.equals(userName[0]) && inp_password.equals(password[0])
-        || inp_username.equals(userName[1]) && inp_password.equals(password[1])
-        || inp_username.equals(userName[2]) && inp_password.equals(password[2])
-        || inp_username.equals(userName[3]) && inp_password.equals(password[3])
-        || inp_username.equals(userName[4]) && inp_password.equals(password[4])){
-        return true;
-        } 
-        else{
-        return false;
-    }
-    }
     void createProfile() {
         System.out.println("Enter your name : ");
         Name = myScan.nextLine();
@@ -63,10 +46,37 @@ public class Banking {
     return accNo;
     }
     public static void main(String[] args) {
+        String filePath = "bankingDetails.txt";
         Banking b = new Banking();
+        Scanner myScan = new Scanner(System.in);
         //infinite loop to keep the program running 
         while (true){
-            b.userVerify();
+        System.out.println("Enter your username: \n");
+        b.inp_username = myScan.nextLine();
+        System.out.println("Enter your password : \n");
+        b.inp_password = myScan.nextLine();
+        if (b.inp_username.equals(b.userName[0]) && b.inp_password.equals(b.password[0]) //User verification
+        || b.inp_username.equals(b.userName[1]) && b.inp_password.equals(b.password[1])
+        || b.inp_username.equals(b.userName[2]) && b.inp_password.equals(b.password[2])
+        || b.inp_username.equals(b.userName[3]) && b.inp_password.equals(b.password[3])
+        || b.inp_username.equals(b.userName[4]) && b.inp_password.equals(b.password[4])){
+            System.out.println("\nYou have entered correct credentials. Creating a new account : \n");
+            b.createProfile();
+            b.accNoGenerator();
+            System.out.println("\nYour account number is : " + b.accNo +"\n");
+        }
+        System.out.println("\nSaving your data in the file : \n");
+            try{
+            FileWriter myWriter = new FileWriter(filePath);
+            myWriter.write(b.Name);
+            myWriter.write(b.phoneNo);
+            myWriter.write(b.address);
+            myWriter.write(String.valueOf(b.accNo)); //type conversion (Double -> String)
+            myWriter.close();
+            }
+            catch(IOException e){
+                e.printStackTrace();
+            }
         }
     }
 }
